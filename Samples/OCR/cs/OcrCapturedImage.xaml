@@ -36,6 +36,13 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="HighlightedWordBoxHorizontalLine_tmp" TargetType="Border" BasedOn="{StaticResource HighlightedWordBox}">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <SolidColorBrush Color="Red" Opacity="0.5" />
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style x:Key="HighlightedWordBoxVerticalLine" TargetType="Border" BasedOn="{StaticResource HighlightedWordBox}">
             <Setter Property="Background">
                 <Setter.Value>

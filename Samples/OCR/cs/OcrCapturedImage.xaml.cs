@@ -31,6 +31,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using System.Text.RegularExpressions;
 
 namespace SDKTemplate
 {
@@ -232,6 +233,7 @@ namespace SDKTemplate
                     foreach (var word in line.Words)
                     {
                         // Define the TextBlock.
+                      
                         var wordTextBlock = new TextBlock()
                         {
                             Text = word.Text,
@@ -244,12 +246,34 @@ namespace SDKTemplate
                         wordBoxes.Add(wordBoxOverlay);
 
                         // Define position, background, etc.
-                        var overlay = new Border()
-                        {
-                            Child = wordTextBlock,
-                            Style = (Style)this.Resources["HighlightedWordBoxHorizontalLine"]
-                        };
 
+
+                        /**/
+                        //  if (word.Text == "(28-4/30|4/28-4/30|4/30|30)") {
+                        //    if (wordTextBlock.Text == "912407" || "547315") {
+                        if (wordTextBlock.Text.IndexOf("30")>=0) { 
+                             var overlay_tmp = new Border() {
+                                Child = wordTextBlock,
+                                Style = (Style)this.Resources["HighlightedWordBoxHorizontalLine_tmp"]
+                            };
+                            overlay_tmp.SetBinding(Border.MarginProperty, wordBoxOverlay.CreateWordPositionBinding());
+                            overlay_tmp.SetBinding(Border.WidthProperty, wordBoxOverlay.CreateWordWidthBinding());
+                            overlay_tmp.SetBinding(Border.HeightProperty, wordBoxOverlay.CreateWordHeightBinding());
+                            TextOverlay.Children.Add(overlay_tmp);
+                        } else {
+                            var overlay = new Border() {
+                                Child = wordTextBlock,
+                                Style = (Style)this.Resources["HighlightedWordBoxHorizontalLine"]
+                            };
+                            overlay.SetBinding(Border.MarginProperty, wordBoxOverlay.CreateWordPositionBinding());
+                            overlay.SetBinding(Border.WidthProperty, wordBoxOverlay.CreateWordWidthBinding());
+                            overlay.SetBinding(Border.HeightProperty, wordBoxOverlay.CreateWordHeightBinding());
+
+                            // Put the filled textblock in the results grid.
+                            TextOverlay.Children.Add(overlay);
+                        }
+                        /**/
+                        /*
                         // Bind word boxes to UI.
                         overlay.SetBinding(Border.MarginProperty, wordBoxOverlay.CreateWordPositionBinding());
                         overlay.SetBinding(Border.WidthProperty, wordBoxOverlay.CreateWordWidthBinding());
@@ -257,6 +281,7 @@ namespace SDKTemplate
 
                         // Put the filled textblock in the results grid.
                         TextOverlay.Children.Add(overlay);
+                        */
                     }
                 }
 
@@ -325,21 +350,7 @@ namespace SDKTemplate
                 rotate.CenterY = PreviewImage.ActualHeight / 2;
             }
         }
-        /*
-        private async void CafFocusRadioButton_Tapped(object sender, RoutedEventArgs e) {
-            // Reset tap-to-focus status
-           
-            FocusRectangle.Visibility = Visibility.Collapsed;
 
-            var focusControl = _mediaCapture.VideoDeviceController.FocusControl;
-
-            await focusControl.UnlockAsync();
-
-            var settings = new FocusSettings { Mode = FocusMode.Continuous, AutoFocusRange = AutoFocusRange.FullRange };
-            focusControl.Configure(settings);
-            await focusControl.FocusAsync();
-        }
-        */
 
         #region MediaCapture methods
 
