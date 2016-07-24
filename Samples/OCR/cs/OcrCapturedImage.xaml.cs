@@ -252,6 +252,7 @@ namespace SDKTemplate
                         //  if (word.Text == "(28-4/30|4/28-4/30|4/30|30)") {
                         //    if (wordTextBlock.Text == "912407" || "547315") {
                         if (wordTextBlock.Text.IndexOf("30")>=0) { 
+                            /*error number has been detected*/
                              var overlay_tmp = new Border() {
                                 Child = wordTextBlock,
                                 Style = (Style)this.Resources["HighlightedWordBoxHorizontalLine_tmp"]
@@ -260,6 +261,12 @@ namespace SDKTemplate
                             overlay_tmp.SetBinding(Border.WidthProperty, wordBoxOverlay.CreateWordWidthBinding());
                             overlay_tmp.SetBinding(Border.HeightProperty, wordBoxOverlay.CreateWordHeightBinding());
                             TextOverlay.Children.Add(overlay_tmp);
+
+                            // TextBlock textBlockWarning = new TextBlock();
+                            textBoxWarning.Text = "ŠúŒÀ‚ª‰ß‚¬‚Ä‚¢‚Ü‚·";
+                            textBoxWarning.Visibility = Visibility.Visible;
+
+
                         } else {
                             var overlay = new Border() {
                                 Child = wordTextBlock,
@@ -273,6 +280,7 @@ namespace SDKTemplate
                             TextOverlay.Children.Add(overlay);
                         }
                         /**/
+                        /*original*/
                         /*
                         // Bind word boxes to UI.
                         overlay.SetBinding(Border.MarginProperty, wordBoxOverlay.CreateWordPositionBinding());
@@ -304,6 +312,9 @@ namespace SDKTemplate
         /// <param name="e"></param>
         private async void CameraButton_Tapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
         {
+
+            textBoxWarning.Visibility = Visibility.Collapsed;
+
             await StartCameraAsync();
         }
 

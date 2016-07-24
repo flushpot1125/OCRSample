@@ -54,6 +54,8 @@
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderBrush" Value="White"/>
         </Style>
+        <!-- wheettweet add-->
+
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid x:Name="RootGrid" Margin="12,10,12,12">
@@ -64,20 +66,24 @@
             </Grid.RowDefinitions>
 
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">
-                <CaptureElement Name="PreviewControl" Stretch="Uniform"/>
-                <Canvas Name="FocusCanvas">
-                    <Rectangle Name="FocusRectangle" Stroke="White" StrokeThickness="2" Visibility="Collapsed"/>
-                </Canvas>
+                <!--    <CaptureElement Name="PreviewControl" Stretch="Uniform"/> -->
+                <CaptureElement Name="PreviewControl" Stretch="UniformToFill"/>
+
                 <Grid x:Name="Image" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image x:Name="PreviewImage"  HorizontalAlignment="Left" VerticalAlignment="Top" SizeChanged="PreviewImage_SizeChanged"/>
                     <Grid x:Name="TextOverlay" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                 </Grid>
+                <Canvas Name="FocusCanvas">
+                    <Rectangle Name="FocusRectangle" Stroke="White" StrokeThickness="2" Visibility="Collapsed"/>
+                    <TextBox x:Name="textBoxWarning" Canvas.Left="68" TextWrapping="Wrap" Text="" Canvas.Top="55" Width="210" FontSize="48" Visibility="Collapsed"/>
+
+                </Canvas>
             </Grid>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20" Grid.Row="1">
                 <Button Name="AFButton"  Tapped="CafFocusRadioButton_Tapped" Visibility="Visible" Height="84" Width="174" >
-                <Viewbox MaxHeight="40" MaxWidth="40">
-                    <SymbolIcon Symbol="Pictures"/>
-                </Viewbox>
+                    <Viewbox MaxHeight="40" MaxWidth="40">
+                        <SymbolIcon Symbol="Pictures"/>
+                    </Viewbox>
                 </Button>
                 <Button Name="ExtractButton" Tapped="ExtractButton_Tapped" Visibility="Collapsed">
                     <Viewbox MaxHeight="40" MaxWidth="40">
@@ -89,7 +95,7 @@
                         <SymbolIcon Symbol="Camera"/>
                     </Viewbox>
                 </Button>
-              
+
             </StackPanel>
             <TextBlock x:Name="StatusBlock" Grid.Row="2" Margin="12, 10, 12, 10" Visibility="Collapsed"/>
         </Grid>
